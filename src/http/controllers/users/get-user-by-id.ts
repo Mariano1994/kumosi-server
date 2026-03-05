@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import mongoose from "mongoose";
 import User from "../../../models/user.ts";
+import "../middlewares/auth.ts";
 export async function getUserById(req: Request, res: Response) {
 	try {
 		const { userId } = req.params;

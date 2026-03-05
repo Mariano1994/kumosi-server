@@ -1,5 +1,6 @@
 import "dotenv/config";
 import cookieParser from "cookie-parser";
+import cros from "cors";
 import express from "express";
 import connectDB from "./config/database.ts";
 import { projecRoutes } from "./http/controllers/projects/routes.ts";
@@ -10,6 +11,12 @@ import { userRoutes } from "./http/controllers/users/routes.ts";
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+	cros({
+		origin: "http://localhost:8080",
+		credentials: true,
+	}),
+);
 
 app.use(
 	"/",

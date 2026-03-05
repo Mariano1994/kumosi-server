@@ -9,10 +9,9 @@ export async function session(req: Request, res: Response) {
 
 		if (!user) {
 			return res.status(401).json({
-				message: "Credentials incorrect",
+				message: "Crendencias Invalidas",
 			});
 		}
-
 		await user.validateCredentials(password, user.password);
 
 		//Asign Token Or create token

@@ -8,22 +8,16 @@ export async function projectFeed(req: Request, res: Response) {
 		const { user } = req;
 		const loggedUserId = new mongoose.Types.ObjectId(user._id);
 
-		// Find all collaboration requests involving the logged-in user
-		// This includes both accepted collaborations and pending requests sent by the user
 		const collaborationRequests = await CollaborationRequest.find({
 			collaboratorId: loggedUserId,
 		} as Record<string, unknown>);
 
-		// Build set of project IDs that should NOT appear in the feed
 		const excludedProjectIds = new Set<string>();
 
-		// Exclude projects where the logged-in user sent collaboration requests
-		// (regardless of status - pending, accepted, or rejected)
 		for (const request of collaborationRequests) {
 			excludedProjectIds.add(request.projectId.toString());
 		}
 
-		// Convert excluded project IDs to ObjectId array
 		const excludedObjectIds = Array.from(excludedProjectIds).map(
 			(id) => new mongoose.Types.ObjectId(id),
 		);

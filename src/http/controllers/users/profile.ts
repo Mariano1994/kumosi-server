@@ -1,4 +1,5 @@
 import type { Request, Response } from "express";
+import "../middlewares/auth.ts";
 export async function profile(req: Request, res: Response) {
 	try {
 		const { user } = req;

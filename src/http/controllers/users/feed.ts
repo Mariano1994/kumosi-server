@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import mongoose from "mongoose";
 import ConnectionRequest from "../../../models/connection-request.ts";
+import "../middlewares/auth.ts";
 import User from "../../../models/user.ts";
 
 export async function feed(req: Request, res: Response) {

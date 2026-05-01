@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import User from "../../../models/user.ts";
+import "../middlewares/auth.ts";
 
 export async function updateUserProfile(req: Request, res: Response) {
 	try {
@@ -18,6 +19,7 @@ export async function updateUserProfile(req: Request, res: Response) {
 			dataToUpdateInUser,
 			{
 				runValidators: true,
+				returnDocument: "after",
 			},
 		);
 
@@ -26,14 +28,14 @@ export async function updateUserProfile(req: Request, res: Response) {
 		}
 
 		res.status(200).json({
-			message: "User updated successfully",
-			userId: user._id,
+			message: "Seu perfil foi atualizado com sucesso",
+			user: updatedUser.toObject(),
 		});
 	} catch (error) {
 		const errorMessage =
 			error instanceof Error ? error.message : "Unknown error occurred";
 		res
 			.status(500)
-			.json({ error: "Failed to update user", details: errorMessage });
+			.json({ error: "Erro ao atualizar perfil", details: errorMessage });
 	}
 }

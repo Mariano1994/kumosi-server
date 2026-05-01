@@ -7,14 +7,19 @@ const { Schema } = mongoose;
 
 export interface IUser extends mongoose.Document {
 	name: string;
-	profissionalTitle?: string | null;
 	email: string;
 	password: string;
+	profissionalTitle?: string | null;
 	age?: number | null;
+	address?: string | null;
+	country?: string | null;
 	gender?: "male" | "female" | "other" | null;
 	photoUrl?: string | null;
+	coverPhotoUrl?: string | null;
 	skills?: string[];
 	about?: string | null;
+	linkedinProfileUrl?: string | null;
+	yearsOfExperience?: number | null;
 	getJWTToken(): Promise<string>;
 	validateCredentials(password: string, userPassword: string): Promise<boolean>;
 }
@@ -58,6 +63,14 @@ const userSchema = new Schema(
 				message: "Age must be at least 18 years old",
 			},
 		},
+		address: {
+			type: String,
+			required: false,
+		},
+		country: {
+			type: String,
+			required: false,
+		},
 		gender: {
 			type: String,
 			enum: ["male", "female", "other"],
@@ -69,8 +82,11 @@ const userSchema = new Schema(
 			},
 		},
 		photoUrl: { type: String, default: null, required: false },
+		coverPhotoUrl: { type: String, default: null, required: false },
 		skills: { type: [String], default: [], required: false },
 		about: { type: String, default: null, required: false },
+		linkedinProfileUrl: { type: String, default: null, required: false },
+		yearsOfExperience: { type: Number, required: false },
 	},
 	{ timestamps: true },
 );

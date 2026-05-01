@@ -10,14 +10,19 @@ export async function register(req: Request, res: Response) {
 
 		const {
 			name,
-			profissionalTitle,
 			email,
+			profissionalTitle,
 			password,
 			age,
+			address,
+			country,
 			gender,
 			photoUrl,
-			about,
+			coverPhotoUrl,
 			skills,
+			about,
+			linkedinProfileUrl,
+			yearsOfExperience,
 		} = req.body;
 
 		// Check if user already exists BEFORE creating User object
@@ -35,14 +40,19 @@ export async function register(req: Request, res: Response) {
 		// Create and save user
 		const userData = {
 			name,
-			profissionalTitle,
 			email,
+			profissionalTitle,
 			password: hashedPassword,
 			age,
+			address,
+			country,
 			gender,
 			photoUrl,
-			about,
+			coverPhotoUrl,
 			skills,
+			about,
+			linkedinProfileUrl,
+			yearsOfExperience,
 		};
 
 		const user = new User(userData);

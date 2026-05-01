@@ -14,6 +14,12 @@ export async function auth(req: Request, res: Response, next: NextFunction) {
 	try {
 		const { Token } = req.cookies;
 
+		if (!Token) {
+			return res.status(401).json({
+				message: "Please login",
+			});
+		}
+
 		if (!process.env.SECRET_KEY_JWT) {
 			return res.status(500).json({
 				error: "Server configuration error",

@@ -12,7 +12,16 @@ export async function session(req: Request, res: Response) {
 				message: "Crendencias Invalidas",
 			});
 		}
-		await user.validateCredentials(password, user.password);
+		const doesPasswordMatch = await user.validatePassword(
+			password,
+			user.password,
+		);
+
+		if (!doesPasswordMatch) {
+			return res.status(401).json({
+				message: "Crendencias Invalidas",
+			});
+		}
 
 		//Asign Token Or create token
 		const token = await user.getJWTToken();

@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import type { Response } from "express";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import validator from "validator";
@@ -21,7 +22,7 @@ export interface IUser extends mongoose.Document {
 	linkedinProfileUrl?: string | null;
 	yearsOfExperience?: number | null;
 	getJWTToken(): Promise<string>;
-	validateCredentials(password: string, userPassword: string): Promise<boolean>;
+	validatePassword(password: string, userPassword: string): Promise<boolean>;
 }
 
 const userSchema = new Schema(
@@ -109,7 +110,7 @@ userSchema.methods.getJWTToken = async function () {
 	return token;
 };
 
-userSchema.methods.validateCredentials = async (
+userSchema.methods.validatePassword = async (
 	passwordGivenByUser: string,
 	hashedPassword: string,
 ) => {
@@ -117,10 +118,7 @@ userSchema.methods.validateCredentials = async (
 		passwordGivenByUser,
 		hashedPassword,
 	);
-
-	if (!doesPasswordMatch) {
-		throw new Error("Credentials incorrect");
-	}
+	return doesPasswordMatch;
 };
 
 const User = mongoose.model<IUser>("User", userSchema);

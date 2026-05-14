@@ -26,6 +26,8 @@ export async function replayRequestConnection(req: Request, res: Response) {
 			return res.status(401).json({ message: "Unautorized" });
 		}
 
+		console.log(user._id.toString());
+
 		if (status === "accepted") {
 			connectionRequest.status = "accepted";
 		} else {

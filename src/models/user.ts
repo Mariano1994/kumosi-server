@@ -1,5 +1,4 @@
 import bcrypt from "bcrypt";
-import type { Response } from "express";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import validator from "validator";
@@ -10,9 +9,9 @@ export interface IUser extends mongoose.Document {
 	name: string;
 	email: string;
 	password: string;
-	profissionalTitle?: string | null;
+	profissionalTitle: string | null;
 	age?: number | null;
-	address?: string | null;
+	address: string | null;
 	country?: string | null;
 	gender?: "male" | "female" | "other" | null;
 	photoUrl?: string | null;
@@ -66,7 +65,7 @@ const userSchema = new Schema(
 		},
 		address: {
 			type: String,
-			required: false,
+			required: true,
 		},
 		country: {
 			type: String,

@@ -1,14 +1,20 @@
 import type { Request, Response } from "express";
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
 import ConnectionRequest from "../../../models/connection-request.ts";
+import "../middlewares/auth.ts";
 
-const USER_SAFE_DATA = [
+export const USER_SAFE_DATA = [
 	"name",
 	"age",
+	"email",
 	"profissionalTitle",
 	"photoUrl",
-	"skill",
+	"skills",
 	"about",
+	"address",
+	"country",
+	"linkedinProfileUrl",
+	"yearsOfExperience",
 ]; // PULBLIC USER INFO
 
 export async function getMyConnetions(req: Request, res: Response) {
@@ -18,11 +24,11 @@ export async function getMyConnetions(req: Request, res: Response) {
 		const connections = await ConnectionRequest.find({
 			$or: [
 				{
-					toUserId: new mongoose.Types.ObjectId(user._id.toString()),
+					toUserId: user._id,
 					status: "accepted",
 				},
 				{
-					fromUserId: new mongoose.Types.ObjectId(user._id.toString()),
+					fromUserId: user._id,
 					status: "accepted",
 				},
 			],
@@ -31,7 +37,7 @@ export async function getMyConnetions(req: Request, res: Response) {
 			.populate("toUserId", USER_SAFE_DATA);
 
 		const myConnections = connections.map((connection) => {
-			if (connection.fromUserId.toString() === user._id.toString()) {
+			if (connection.fromUserId._id.toString() === user._id.toString()) {
 				return connection.toUserId;
 			}
 			return connection.fromUserId;

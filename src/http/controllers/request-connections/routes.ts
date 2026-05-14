@@ -12,19 +12,18 @@ requestConnectionRoutes.post(
 	auth,
 	sendRequestConnection,
 );
-
 requestConnectionRoutes.post(
 	"/request/connection/:status/:connectionId",
 	auth,
 	replayRequestConnection,
 );
 requestConnectionRoutes.get(
-	"/request/connection/my-connections",
+	"/connections/my-connections",
 	auth,
 	getMyConnetions,
 );
 requestConnectionRoutes.get(
-	"/request/connection/my-requests",
+	"/connections/my-requests",
 	auth,
 	getMyConnectionRequest,
 );

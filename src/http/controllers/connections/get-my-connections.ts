@@ -38,9 +38,15 @@ export async function getMyConnetions(req: Request, res: Response) {
 
 		const myConnections = connections.map((connection) => {
 			if (connection.fromUserId._id.toString() === user._id.toString()) {
-				return connection.toUserId;
+				return {
+					connectionId: connection._id,
+					userConnection: connection.toUserId,
+				};
 			}
-			return connection.fromUserId;
+			return {
+				connectionId: connection._id,
+				userConnection: connection.fromUserId,
+			};
 		});
 
 		res.status(200).json({ myConnections, quantity: myConnections.length });

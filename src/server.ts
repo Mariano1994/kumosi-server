@@ -3,9 +3,9 @@ import cookieParser from "cookie-parser";
 import cros from "cors";
 import express from "express";
 import connectDB from "./config/database.ts";
+import { requestConnectionRoutes } from "./http/controllers/connections/routes.ts";
 import { projecRoutes } from "./http/controllers/projects/routes.ts";
 import { collaborationRoutes } from "./http/controllers/request-collabotation-in-project/routes.ts";
-import { requestConnectionRoutes } from "./http/controllers/request-connections/routes.ts";
 import { userRoutes } from "./http/controllers/users/routes.ts";
 
 const app = express();

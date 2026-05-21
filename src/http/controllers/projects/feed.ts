@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import mongoose from "mongoose";
 import { CollaborationRequest } from "../../../models/collaboration-request.ts";
+import "../middlewares/auth.ts";
 import Project from "../../../models/project.ts";
 
 export async function projectFeed(req: Request, res: Response) {

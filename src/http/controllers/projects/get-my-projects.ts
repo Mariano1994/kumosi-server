@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import mongoose from "mongoose";
 import Project from "../../../models/project.ts";
+import "../middlewares/auth.ts";
 
 export async function getMyProjects(req: Request, res: Response) {
 	try {

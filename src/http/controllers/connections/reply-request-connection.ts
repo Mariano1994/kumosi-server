@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import mongoose from "mongoose";
 import ConnectionRequest from "../../../models/connection-request.ts";
+import "../middlewares/auth.ts";
 
 export async function replayRequestConnection(req: Request, res: Response) {
 	try {
@@ -32,6 +33,7 @@ export async function replayRequestConnection(req: Request, res: Response) {
 			connectionRequest.status = "accepted";
 		} else {
 			connectionRequest.status = "rejected";
+			await ConnectionRequest.findByIdAndDelete(connectionId);
 		}
 
 		await connectionRequest.save();

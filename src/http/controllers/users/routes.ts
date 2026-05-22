@@ -1,4 +1,5 @@
 import express from "express";
+import { upload } from "../../../config/multer.ts";
 import { auth } from "../middlewares/auth.ts";
 import { deleteUserById } from "./delete-user-by-id.ts";
 import { feed } from "./feed.ts";
@@ -21,5 +22,13 @@ userRoutes.delete("/users/:userId", deleteUserById);
 userRoutes.get("/feed", auth, feed);
 userRoutes.get("/me", auth, profile);
 userRoutes.get("/users/:userId", auth, getUserById);
-userRoutes.put("/me/edit", auth, updateUserProfile);
+userRoutes.put(
+	"/me/edit",
+	auth,
+	upload.fields([
+		{ name: "photoUrl", maxCount: 1 },
+		{ name: "coverPhotoUrl", maxCount: 1 },
+	]),
+	updateUserProfile,
+);
 userRoutes.put("/me/edit-password", auth, updateUserProfile);

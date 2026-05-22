@@ -13,15 +13,25 @@ export async function updateUserProfile(req: Request, res: Response) {
 		}
 
 		const { user } = req;
+		const files = req.files as {
+			[fieldname: string]: Express.Multer.File[];
+		};
+		const profilePhoto = files.photoUrl?.[0] || null;
+		const coverPhoto = files.coverPhotoUrl?.[0] || null;
 
-		const updatedUser = await User.findByIdAndUpdate(
-			user._id,
-			dataToUpdateInUser,
-			{
-				runValidators: true,
-				returnDocument: "after",
-			},
-		);
+		const profilePhotoUrl = (profilePhoto as any)?.path;
+		const coverPhotoUrl = (coverPhoto as any)?.path;
+
+		const newUserInfo = {
+			...dataToUpdateInUser,
+			photoUrl: profilePhotoUrl || null,
+			coverPhotoUrl: coverPhotoUrl || null,
+		};
+
+		const updatedUser = await User.findByIdAndUpdate(user._id, newUserInfo, {
+			runValidators: true,
+			returnDocument: "after",
+		});
 
 		if (!updatedUser) {
 			return res.status(404).json({ error: "User not found" });

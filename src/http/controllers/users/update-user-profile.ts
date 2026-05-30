@@ -24,8 +24,8 @@ export async function updateUserProfile(req: Request, res: Response) {
 
 		const newUserInfo = {
 			...dataToUpdateInUser,
-			photoUrl: profilePhotoUrl || null,
-			coverPhotoUrl: coverPhotoUrl || null,
+			photoUrl: profilePhotoUrl,
+			coverPhotoUrl: coverPhotoUrl,
 		};
 
 		const updatedUser = await User.findByIdAndUpdate(user._id, newUserInfo, {

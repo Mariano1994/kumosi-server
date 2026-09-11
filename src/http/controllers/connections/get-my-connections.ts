@@ -9,6 +9,7 @@ export const USER_SAFE_DATA = [
 	"email",
 	"profissionalTitle",
 	"photoUrl",
+	"coverPhotoUrl",
 	"skills",
 	"about",
 	"address",

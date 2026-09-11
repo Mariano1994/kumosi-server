@@ -14,10 +14,10 @@ jobs :
 
     - name: Setup node
       uses: actions/setup-node@v4
+    - run: npm install -g pnpm
       with:
         node-version: 22
         cache: 'pnpm'
-    - run: npm install -g pnpm 
     - run: pnpm install
 
     

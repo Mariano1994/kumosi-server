@@ -4,10 +4,21 @@ name: CI
 on: 
   push:
     branches: [ main ]
-    
+
 jobs :
   build: 
     name: 'build and push'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+
+    - name: Setup node
+      uses: actions/setup-node@v7
+      with:
+        node-version: 20
+        cache: 'pnpm'
+    -run: pnpm install
+    -run: pnpm build
+    
+
+
